@@ -1,6 +1,6 @@
 #maindiv {
-    text-align: center; 
-    text-justify: center; 
+    text-align: center;
+    text-justify: center;
     background-color: gray;
     width: 510px;
     height: 655px;
@@ -24,12 +24,14 @@ p {
 }
 
 .display {
+
     background-color: limegreen;
+    text-align: right;
     height: 90px;
     width: 473px;
     float:top;
     margin: 10px;
-    border-width:10px;
+    border-width:6px;
     border-color: #64e764;
     font-family:verdana;
     font-weight: bold;

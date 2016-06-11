@@ -1,10 +1,16 @@
 //---------------------------------------------------
 //var add2 = add;
 var cx = calculatorModule();
-
 var mainDiv = document.getElementById('maindiv');
 
 var daNumbas = [7,8,9,"%","CLR",4,5,6,"X","GtBl",1,2,3,"-","Dep$",0,"00",".","+","Wth$","="];
+var calcNumbers = [];
+var calcJoined = '';
+
+function calcNumDisplay(){
+  calcJoined = calcNumbers.join('');
+  displayDiv.innerHTML = calcJoined;
+}
 
   displayDiv = document.createElement('div');
   displayDiv.className = "display";
@@ -35,77 +41,45 @@ clickable0.addEventListener('click',cx.add(7));
 }*/
 var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[0].addEventListener('click',clickTest0);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[1].addEventListener('click',clickTest1);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[2].addEventListener('click',clickTest2);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[3].addEventListener('click',clickTest3);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[4].addEventListener('click',clickTest4);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[5].addEventListener('click',clickTest5);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[6].addEventListener('click',clickTest6);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[7].addEventListener('click',clickTest7);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[8].addEventListener('click',clickTest8);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[9].addEventListener('click',clickTest9);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[10].addEventListener('click',clickTest10);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[11].addEventListener('click',clickTest11);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[12].addEventListener('click',clickTest12);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[13].addEventListener('click',clickTest13);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[14].addEventListener('click',clickTest14);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[15].addEventListener('click',clickTest15);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[16].addEventListener('click',clickTest16);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[17].addEventListener('click',clickTest17);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[18].addEventListener('click',clickTest18);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[19].addEventListener('click',clickTest19);
-
-var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[20].addEventListener('click',clickTest20);
 
 function clickTest0(){
-  console.log("click!", cx.load(7));
+  cx.load(7);
+  calcNumbers.push(7);
+  calcNumDisplay(7);
+  document.getElementById('displayDiv');
   console.log(cx.getTotal());
 }
-
 function clickTest1(){
-  console.log("click!",cx.add(8));
+    cx.load(8);
+    calcNumbers.push(8);
+    calcNumDisplay(8);
+  console.log(cx.getTotal());
 }
 function clickTest2(){
-  console.log("click!",cx.add(9));
+    cx.load(9);
+    calcNumbers.push(9);
+    calcNumDisplay(9);
+  console.log(cx.getTotal());
 }
 function clickTest3(){
   console.log("click!",cx.divide());
@@ -114,13 +88,21 @@ function clickTest4(){
   console.log("click!",cx.clearMemory());
 }
 function clickTest5(){
-  console.log("click!",cx.add(4));
+  cx.load(4);
+  calcNumbers.push(4);
+  calcNumDisplay(4);
+  console.log(cx.getTotal());
 }
 function clickTest6(){
-  console.log("click!",cx.add(5));
+  calcNumbers.push(5);
+  calcNumDisplay(5);
+  cx.load(5);
+  console.log(cx.getTotal());
 }
 function clickTest7(){
-  console.log("click!",cx.add(6));
+  calcNumbers.push(6);
+  calcNumDisplay(6);
+  cx.load(6);
 }
 function clickTest8(){
   console.log("click!",cx.multiply());
@@ -129,13 +111,19 @@ function clickTest9(){
   console.log("click!",cx.add());
 }
 function clickTest10(){
-  console.log("click!",cx.add(1));
+  calcNumbers.push(1);
+  calcNumDisplay(1);
+  cx.load(1);
 }
 function clickTest11(){
-  console.log("click!",cx.add(2));
+  calcNumbers.push(2);
+  calcNumDisplay(2);
+  cx.load(2);
 }
 function clickTest12(){
-  console.log("click!",cx.add(3));
+  calcNumbers.push(3);
+  calcNumDisplay(3);
+  cx.load(3);
 }
 function clickTest13(){
   console.log("click!",cx.subtract());
@@ -144,10 +132,15 @@ function clickTest14(){
   console.log("click!",cx.add());
 }
 function clickTest15(){
-  console.log("click!",cx.add(0));
+  cx.load(0);
+  calcNumbers.push(0);
+  calcNumDisplay(0);
+  cx.load(0);
 }
 function clickTest16(){
-  console.log("click!",cx.add(+"00"));
+ calcNumbers.push(0);
+  calcNumDisplay("00");
+  cx.load(0);
 }
 function clickTest17(){
   console.log("click!",cx.add("."));
