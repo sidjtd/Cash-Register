@@ -31,7 +31,6 @@ var calculatorModule = (function() {
     validations: validations
   };
 
-
   function validations(x){
     if(typeof(x) !=='number'){
       throw new Error('This isnt a number!');
@@ -43,31 +42,26 @@ var calculatorModule = (function() {
    * @param  { Number } x
    * @return { Number }    current total
    */
-
    function load(x){
     validations(x);
     total = x;
     return total;
    }
-
-
   /**
    * Return the value of `total`
    * @return { Number }
    */
-
    function getTotal(){
       return total;
    }
-
   /**
    * Sums the value passed in with `total`
    * @param { Number } x
    */
-
    function add(x){
     validations(x);
     total = x+total;
+    console.log(total);
     return total;
    }
 
@@ -75,7 +69,6 @@ var calculatorModule = (function() {
    * Subtracts the value passed in from `total`
    * @param  { Number } x
    */
-
    function subtract(x){
     validations(x);
     total = total-x;
