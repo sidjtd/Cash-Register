@@ -7,6 +7,8 @@ var daNumbas = [7,8,9,"%","CLR",4,5,6,"X","GtBl",1,2,3,"-","Dep$",0,"00",".","+"
 var calcNumbers = [];
 var calcJoined = '';
 
+var happyHolder = [];
+
 function calcNumDisplay(){
   calcJoined = calcNumbers.join('');
   displayDiv.innerHTML = calcJoined;
@@ -14,7 +16,7 @@ function calcNumDisplay(){
 
   displayDiv = document.createElement('div');
   displayDiv.className = "display";
-  displayDiv.innerHTML = 'THE DISPLAY';
+  displayDiv.innerHTML = '<span class="blink">|</span>';
   mainDiv.appendChild(displayDiv);
 
   var x = 21;
@@ -62,96 +64,262 @@ var clickable = document.getElementsByClassName('calButtonDivs');
             clickable[19].addEventListener('click',clickTest19);
             clickable[20].addEventListener('click',clickTest20);
 
+// Keeps track of how many digits, and MAX ALLOWABLE.
+var digitCount = 0;
+var digitMax = 10;
+var firstNum = [];
+var secondNum = [];
+var stillFirstNum = true;
+
+//Lets Operators work again after pushing a number
+function truther(){
+  minusStop = true;
+  multStop = true;
+  plusStop = true;
+  divStop = true;
+}
+
+//Prevents operators from Starting from default
+var opStart = false;
+
 function clickTest0(){
-  cx.load(7);
-  calcNumbers.push(7);
-  calcNumDisplay(7);
-  document.getElementById('displayDiv');
-  console.log(cx.getTotal());
+    if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    cx.load(7);
+    cx.saveMemory;
+    opStart = true;
+    calcNumbers.push(7);
+    happyHolder.push(7);
+    calcNumDisplay(7);
+    document.getElementById('displayDiv');
+    console.log(cx.getTotal());
+      if(stillFirstNum){
+        firstNum.push(7);
+        stillFirstNum=false;
+      }else{
+        secondNum.push(7);
+      }
+  }
 }
 function clickTest1(){
+  if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
     cx.load(8);
     calcNumbers.push(8);
+    happyHolder.push(8);
     calcNumDisplay(8);
-  console.log(cx.getTotal());
+    console.log(cx.getTotal());
+    if(stillFirstNum){
+        firstNum.push(8);
+        stillFirstNum=false;
+      }else{
+        secondNum.push(8);
+      }
+  }
 }
 function clickTest2(){
+  if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
     cx.load(9);
     calcNumbers.push(9);
+    happyHolder.push(9);
     calcNumDisplay(9);
-  console.log(cx.getTotal());
+    console.log(cx.getTotal());
+  }
 }
+var divStop = true;
 function clickTest3(){
-  console.log("click!",cx.divide());
+  if(divStop&&opStart){
+    opStart = false;
+   calcNumbers.push("%");
+   happyHolder.push("%");
+    calcNumDisplay("%");
+    minusStop = false;
+    multStop = false;
+    plusStop = false;
+    divStop = false;
+  }
 }
+
 function clickTest4(){
-  console.log("click!",cx.clearMemory());
+  opStart = false;
+  happyHolder = [];
+  digitCount = 0;
+  truther();
+  cx.clearMemory();
+  displayDiv.innerHTML ='<span class="blink">|</span>';
+  calcNumbers.length = 0;
 }
+//2ndRow 2ndRow 2ndRow 2ndRow 2ndRow 2ndRow
 function clickTest5(){
-  cx.load(4);
-  calcNumbers.push(4);
-  calcNumDisplay(4);
-  console.log(cx.getTotal());
+  if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
+    cx.load(4);
+    calcNumbers.push(4);
+    happyHolder.push(4);
+    calcNumDisplay(4);
+    console.log(cx.getTotal());
+}
 }
 function clickTest6(){
-  calcNumbers.push(5);
-  calcNumDisplay(5);
-  cx.load(5);
-  console.log(cx.getTotal());
+  if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
+    calcNumbers.push(5);
+    calcNumDisplay(5);
+    happyHolder.push(5);
+    cx.load(5);
+    console.log(cx.getTotal());
+  }
 }
 function clickTest7(){
-  calcNumbers.push(6);
-  calcNumDisplay(6);
-  cx.load(6);
+   if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
+    calcNumbers.push(6);
+    calcNumDisplay(6);
+    happyHolder.push(6);
+    cx.load(6);
+  }
 }
+var multStop = true;
 function clickTest8(){
-  console.log("click!",cx.multiply());
+  if(multStop&&opStart){
+    opStart = false;
+    calcNumbers.push("x");
+    happyHolder.push("x");
+    calcNumDisplay("x");
+    happyHolder.push("x");
+    minusStop = false;
+    multStop = false;
+    plusStop = false;
+    divStop = false;
+  }
 }
 function clickTest9(){
   console.log("click!",cx.add());
 }
+//3rdRow 3rdRow 3rdRow 3rdRow 3rdRow 3rdRow 3rdRow
 function clickTest10(){
-  calcNumbers.push(1);
-  calcNumDisplay(1);
-  cx.load(1);
+  if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
+    calcNumbers.push(1);
+    calcNumDisplay(1);
+    happyHolder.push(1);
+    cx.load(1);
+  }
 }
 function clickTest11(){
-  calcNumbers.push(2);
-  calcNumDisplay(2);
-  cx.load(2);
+   if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
+    calcNumbers.push(2);
+    calcNumDisplay(2);
+    happyHolder.push(2);
+    cx.load(2);
+  }
 }
 function clickTest12(){
-  calcNumbers.push(3);
-  calcNumDisplay(3);
-  cx.load(3);
+   if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
+    calcNumbers.push(3);
+    calcNumDisplay(3);
+    happyHolder.push(3);
+    cx.load(3);
+  }
 }
+
+var minusStop = true;
 function clickTest13(){
-  console.log("click!",cx.subtract());
+  if(minusStop&&opStart){
+    opStart = false;
+    calcNumbers.push("-");
+    happyHolder.push("-");
+    calcNumDisplay("-");
+    minusStop = false;
+    plusStop = false;
+    multStop = false;
+    divStop = false;
+  }
 }
 function clickTest14(){
   console.log("click!",cx.add());
 }
+//4thRow 4thRow 4thRow 4thRow 4thRow 4thRow 4thRow
 function clickTest15(){
-  cx.load(0);
-  calcNumbers.push(0);
-  calcNumDisplay(0);
-  cx.load(0);
+  if(digitCount<digitMax){
+    digitCount+=1;
+    truther();
+    opStart = true;
+    cx.load(0);
+    calcNumbers.push(0);
+    happyHolder.push("0");
+    calcNumDisplay(0);
+    cx.load(0);
+  }
 }
 function clickTest16(){
- calcNumbers.push(0);
-  calcNumDisplay("00");
-  cx.load(0);
+   if(digitCount<digitMax){
+    digitCount+=2.5;
+    truther();
+    opStart = true;
+    calcNumbers.push("0","0");
+    happyHolder.push("0");
+    happyHolder.push("0");
+    calcNumDisplay("00");
+    cx.load(0);
+  }
 }
 function clickTest17(){
-  console.log("click!",cx.add("."));
-}
-function clickTest18(){
-  console.log("click!",cx.add());
-}
-function clickTest19(){
-  console.log("click!",cx.add("."));
-}
-function clickTest20(){
-  console.log("click!",cx.getTotal());
+
 }
 
+//THIS IS MY ADD BUTTON
+var plusStop = true;
+function clickTest18(){
+    if(plusStop&&opStart){
+    opStart = false;
+    calcNumbers.push("+");
+    happyHolder.push("+");
+    calcNumDisplay("+");
+    plusStop = false;
+    minusStop = false;
+    multiStop = false;
+    divStop = false;
+  }
+}
+function clickTest19(){
+  var audio = document.getElementById('audio');
+    if (audio.paused) {
+        audio.play();
+    }else{
+        audio.pause();
+        audio.currentTime = 0;
+    }
+}
+function clickTest20(){
+  var result = (firstNum[0]+secondNum[0]);
+  displayDiv.innerHTML = result;
+  //console.log(happyHolder);
+  console.log("saveMemory",cx.saveMemory());
+    }
+
+
+
+function play() {
+    document.getElementById('audio').play();
+}
