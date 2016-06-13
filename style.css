@@ -31,9 +31,6 @@ div {
     border-radius: 15px;
 }
 
-p {
-}
-
 .display {
     background-position: -10px -100px;
     background-image: url("skull2.jpg");
@@ -124,3 +121,4 @@ box-shadow: inset -12px -11px 28px -8px #757373;
     visibility: hidden;
   }
 }
+
