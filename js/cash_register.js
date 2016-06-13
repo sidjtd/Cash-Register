@@ -6,23 +6,21 @@ var daNumbas = [7,8,9,"%","CLR",4,5,6,"X","GtBl",1,2,3,"-","Dep$",0,"00",".","+"
 var calcNumbers = [];
 var calcJoined = '';
 var calcStrToNum = 0;
-
 //!!!!KEEP!!!!!!! Keeps track of how many digits, and MAX ALLOWABLE.
 var digitCount = 0;
 var digitMax = 10;
 
-// TEMP?????
-var happyHolder = [];
-var happyHolder2 = null;
 
+var subtractGotPushedFirst = false;
 // TESTING
 var firstNum = 0;
 var secondNum = 9;
 
 // TESTING  -  All Flags Start as False
 var nowSecondNum = false;
-
 var cleanRequest = false;
+
+var cleanMe =true;
 /*var plusFlag = false;
 var subFlag = false;
 var multFlag = false;
@@ -35,7 +33,6 @@ var minusStop = true;
 var plusStop = true;
 
 var firstTimeOnly = true;
-var cleanMe =true;
 
 //FUNCTIONS
 function calcNumDisplay(){
@@ -46,7 +43,7 @@ function calcNumDisplay(){
     cx.load(calcStrToNum);
     cx.saveMemory();
     firstNum = cx.getTotal();
-    console.log(cx.getTotal());
+    //console.log(cx.getTotal());
     //console.log("calcStrToNum",calcStrToNum);
     console.log("calcNumDisplay First");
   }
@@ -56,7 +53,6 @@ function calcNumDisplay(){
       screenCleaner();
       cleanMe = false;
     }
-
     console.log("calcNumDisplay Second");
     calcJoined = calcNumbers.join('');// join array into a string
     displayDiv.innerHTML = calcJoined;// put into screen
@@ -64,6 +60,20 @@ function calcNumDisplay(){
     console.log("calcStrToNum",calcStrToNum);
     //console.log(typeof calcStrToNum);
   }
+  /*else {
+    if(cleanRequest){
+      screenCleaner();
+      cleanMe = false;
+    }
+
+    console.log("calcNumDisplay Third Onwards");
+    calcJoined = calcNumbers.join('');// join array into a string
+    displayDiv.innerHTML = calcJoined;// put into screen
+    calcStrToNum = Number(calcJoined);// make string back into numbers
+    console.log("calcStrToNum",calcStrToNum);
+    //console.log(typeof calcStrToNum);
+
+  }*/
 }
 
 function doMath(){
@@ -73,11 +83,12 @@ function doMath(){
 }
 
 function screenCleaner(){
-  if(cleanMe){
+  //if(cleanMe){
+    console.log("Clean Request Made~~~~~~~~~~");
     calcNumbers = [];
     calcNumbers.push(secondNum);
     cleanRequest =false;
-  }
+  //}
 }
 //-------MAKING MY BOXES DYNAMICALLY
       displayDiv = document.createElement('div');
@@ -123,14 +134,16 @@ var clickable = document.getElementsByClassName('calButtonDivs');
 //Allows Operators work again after pushing a number
 function opStopTruther(){
   opStop = true;
+  divStop = true;
+  multStop = true;
+  minusStop = true;
+  plusStop = true;
 }
 
 //Prevents operators from Starting from default
-
 var opStart = false;
 var opHold = 9;
-
-function opDo(doNum){
+/*function opDo(doNum){
    console.log("function opDo Initiated");
     if(opHold===0){
       cx.divide(doNum);
@@ -141,8 +154,7 @@ function opDo(doNum){
     }else if(opHold===4){
       cx.add(doNum);
     }
-}
-
+}*/
 
 //In other words, disables Ops after Pressed
 function allOpCeptMinus(){
@@ -150,7 +162,7 @@ function allOpCeptMinus(){
     opStart = false;
     cx.saveMemory();
 
-    //Makes Ops Live Again
+    //Kills the Ops
     minusStop = false;
     multStop = false;
     plusStop = false;
@@ -162,7 +174,7 @@ function allOpCeptMinus(){
 function clickTest3(){
     if(divStop&&opStart){
     allOpCeptMinus();
-    happyHolder.push("%");
+
     console.log("Division Button");
 
     opHold = 0;
@@ -172,7 +184,7 @@ function clickTest3(){
 function clickTest8(){
   if(multStop&&opStart){
     allOpCeptMinus();
-    happyHolder.push("x");
+
     console.log("Mult Button");
 
     opHold = 1;
@@ -183,7 +195,6 @@ function clickTest18(){
   if(plusStop&&opStart){
     allOpCeptMinus();
 
-    happyHolder.push("+");
     console.log("+ Button");
 
     opHold = 4;
@@ -193,48 +204,61 @@ function clickTest18(){
 function clickTest13(){
   if(minusStop&&opStart){
     allOpCeptMinus();
-    happyHolder.push("-");
+
     console.log("Subtract Button");
 
     opHold = 3;
+  }
+  else if(opStart===false){
+    subtractGotPushedFirst = true;
+
+    displayDiv.innerHTML = '-';
+    displayDiv.innerHTML += '&nbsp;';
+ /*   var minusSignDiv = document.createElement('div');
+    minusSignDiv.className = "subject";
+    minusSignDiv.innerHTML = '-';
+    displayDiv.appendChild(minusSignDiv);*/
   }
 }
 
 // ### All Clickable Numbers Except 0 and 00 ###
 function clickNumbers(num){
   if(digitCount<digitMax&&firstTimeOnly){
-
-    digitCount+=1;
-    opStopTruther(); //Lets Operators work again after pushing a number
-    opStart = true;
-    console.log("Operators Now Live");
+    divStop = true;
+    multStop = true;
+    minusStop = true;
+    plusStop = true;
     cx.load(num);
+    digitCount+=1;
+    opStart = true;
     calcNumbers.push(num);
-    happyHolder.push(num);
+
+    opStopTruther(); //Lets Operators work again after pushing a number
     calcNumDisplay(num);
 
     doMath();
 
+    console.log("Operators Now Live");
+    console.log("firstStateClicker");
   }
-  else if(firstTimeOnly===false){
-    digitCount+=1;
-    opStopTruther(); //Lets Operators work again after pushing a number
+  else if(digitCount<digitMax&&firstTimeOnly===false){
 
     opStart = true;
-    console.log("Operators Now Live But in Part 2 mode");
-
-    secondNum = num;
     //cx.load(num);
+    secondNum = num;
+    digitCount+=1;
     calcNumbers.push(num);
-    happyHolder.push(num);
+
+    opStopTruther(); //Lets Operators work again after pushing a number
     calcNumDisplay(num);
 
     doMath();
-    console.log("This is what 2ndNum currently is: ",secondNum);
+
+    console.log("Operators Now Live But in Part 2 mode");
   }
 }
 
-// POSS NEW ZERO
+// NEW ZERO
 function clickTest15(num){
   if(digitCount<digitMax&&firstTimeOnly){
 
@@ -242,15 +266,15 @@ function clickTest15(num){
     opStopTruther(); //Lets Operators work again after pushing a number
     opStart = true;
     console.log("Operators Now Live");
-    cx.load(num);
+    cx.load(0);
     calcNumbers.push(0);
-    happyHolder.push(0);
+
     calcNumDisplay(0);
 
     doMath();
 
   }
-  else if(firstTimeOnly===false){
+  else if(digitCount<digitMax&&firstTimeOnly===false){
     digitCount+=1;
     opStopTruther(); //Lets Operators work again after pushing a number
 
@@ -260,14 +284,13 @@ function clickTest15(num){
     secondNum = 0;
     //cx.load(num);
     calcNumbers.push(0);
-    happyHolder.push(0);
+
     calcNumDisplay(0);
 
     doMath();
     console.log("This is what 2ndNum currently is: ",secondNum);
   }
 }
-
 //00000000000000000000000000000
 /*function clickTest15(){
   if(digitCount<digitMax){
@@ -275,7 +298,7 @@ function clickTest15(num){
     opStopTruther();
     opStart = true;
     calcNumbers.push(0);
-    happyHolder.push("0");
+    ");
     calcNumDisplay(0);
     cx.load(0);
   }
@@ -287,7 +310,7 @@ function clickTest16(){
     opStopTruther();
     opStart = true;
     calcNumbers.push("0","0");
-    happyHolder.push("0");
+
     calcNumDisplay("00");
     cx.load(0);
   }
@@ -299,25 +322,37 @@ function clickTest4(){
   nowSecondNum = false;
   opStart = false;
   firstTimeOnly=true;
-  happyHolder = [];
   digitCount = 0;
   opStopTruther(); //Lets Operators work again after pushing a number
   cx.clearMemory();
   displayDiv.innerHTML ='<span class="blink">|</span>';
   calcNumbers.length = 0;
+  cleanMe =true;
+  cleanRequest = false;
 }
 
 
 // Same as clear except DOESN'T Clear the screen
 function clickTest4Clone(){
+  cleanMe =true;
   nowSecondNum = false;
   opStart = false;
   firstTimeOnly=true;
-  happyHolder = [];
   digitCount = 0;
   opStopTruther(); //Lets Operators work again after pushing a number
   cx.clearMemory();
+  displayDiv.innerHTML ='<span class="blink">|</span>';
   calcNumbers.length = 0;
+  cleanMe =true;
+  cleanRequest = false;
+  /*nowSecondNum = false;
+  opStart = false;
+  firstTimeOnly=true;
+   digitCount = 0;
+  opStopTruther(); //Lets Operators work again after pushing a number
+  cx.clearMemory();
+  calcNumbers.length = 0;
+*/
 }
 
 //--------------------
@@ -366,47 +401,52 @@ var theMemoryNum = 0;
 
 function clickTest20(){
   if(firstTimeOnly===false&&opHold===0){
-    cx.divide(theMemoryNum);
-    firstTimeOnly = true;
-    opStopTruther();
-    opHold = 9;
+    console.log("getTotal",cx.getTotal());
+    console.log("firstNum",firstNum);
+
+    secondNum = cx.getTotal();
+    cx.load(firstNum);
+    cx.divide(secondNum);
     clickTest4Clone();
 
-     console.log("Finalize Div");
+    console.log("F divided");
     }
   else if(firstTimeOnly===false&&opHold===1){
-    cx.multiply(theMemoryNum);
-    firstTimeOnly = true;
-    opStopTruther();
-    opHold = 9;
+    cx.multiply(firstNum);
     clickTest4Clone();
-
-     console.log("Finalize Multiply");
+    console.log("F multiplied");
     }
-  else if(firstTimeOnly===false&&opHold===2){
-    firstTimeOnly = true;
-    opStopTruther();
-    opHold = 9;
-    cx.subtract(theMemoryNum);
+  else if(firstTimeOnly===false&&opHold===3){
+
+    secondNum = cx.getTotal();
+    cx.load(firstNum);
+    cx.subtract(secondNum);
     clickTest4Clone();
 
-     console.log("Finalize Subtract");
+    console.log("Finalize Subtract");
     }
   else if(firstTimeOnly===false&&opHold===4){
-    firstTimeOnly = true;
-    opStopTruther();
     cx.add(firstNum);
     clickTest4Clone();
     }
-    console.log("firstTimeOnly:",firstTimeOnly);
-    console.log("opHold:",opHold);
-    console.log(cx.getTotal());
+    opStopTruther();
+    //opStart = true;
+    opStop = false;
+    firstTimeOnly = true;
+    //console.log(cx.getTotal());
     opHold = 9;
-}
     cleanMe =true;
+    cleanRequest = false;
     digitCount = 0;
     displayDiv.innerHTML = cx.getTotal();
     function play() {
     document.getElementById('audio').play();
 
+    divStop = true;
+    multStop = true;
+    minusStop = true;
+    plusStop = true;
 }
+
+}
+
